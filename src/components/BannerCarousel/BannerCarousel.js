@@ -2,9 +2,9 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import banner1 from './images/image1.jpeg';
-import banner2 from './images/image2.jpeg';
-import banner3 from './images/image3.jpeg';
+import banner1 from '../../images/image1.jpeg';
+import banner2 from '../../images/image2.jpeg';
+import banner3 from '../../images/image3.jpeg';
 import { styled } from "styled-components";
 
 const BannerCarousel = () => {
