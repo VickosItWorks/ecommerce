@@ -16,6 +16,7 @@ const Logo = styled.div`
   font-size: 1.5em;
   margin-left: 0.2em;
   font-weight: bold;
+  justify-content: center;
 `;
 
 const Navigator = styled.nav`
@@ -24,6 +25,8 @@ const Navigator = styled.nav`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 1em;
+  align-items: center;
+
 `;
 
 const Item = styled.li`
