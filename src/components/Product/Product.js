@@ -79,9 +79,9 @@ const Product = () => {
       <CardContainer>
         {data &&
           data.map((product) => (
-            <Card key={product.id} >
+            <Card key={product.id} onClick={() => handleClick(product.id)}>
               <ImgCard>
-                <img src={product.image} alt="" onClick={() => handleClick(product.id)}/>
+                <img src={product.image} alt="" />
               </ImgCard>
               <DetailsCard>
                 <h3>{product.name}</h3>
