@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./RegisterUser.css";
 import { styled } from "styled-components";
 import { toast } from "react-toastify";
-import { ToastContainer } from 'react-toastify';
 
 const Pgraph = styled.p`
   color: red;
@@ -98,9 +97,7 @@ const RegisterUser = () => {
           Submit
         </Largebutton>
       </form>
-    <ToastContainer />
     </Regcontainer>
-
   );
 };
 
