@@ -22,7 +22,7 @@ const Largebutton = styled.button`
 const Regcontainer = styled.div`
   max-width: 400px;
   margin: 0 auto;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   padding: 20px;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -30,40 +30,31 @@ const Regcontainer = styled.div`
   box-shadow: 0 3px 10px rgb(0 0 0 / 55%);
 `;
 
-const RegisterUser = () => {
+const LoginUser = () => {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
-    const [userName, setUserName] = useState("");
 
-    const registerPost = async (e) => {
+    const loginPost = async (e) => {
         e.preventDefault();
         let payload = {};
         payload.email = email;
         payload.password = pass;
-        payload.username = userName;
-        const registerData = await requestPost({ pathUrl: 'register', payload });
-        const { user, accessToken } = registerData;
+
+        const loginData = await requestPost({ pathUrl: 'login', payload });
+        const { user, accessToken } = loginData;
         if (user && accessToken) {
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('userData', JSON.stringify(user));
             toast.success("algo");
         } else {
-            toast.error(registerData);
+            toast.error(loginData);
         }
     };
 
     return (
         <Regcontainer className="container">
-            <h1>Register</h1>
+            <h1>Login</h1>
             <form>
-                <label name="name">Full Name:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    required
-                />
-
                 <label name="email">Email:</label>
                 <input
                     type="email"
@@ -86,17 +77,17 @@ const RegisterUser = () => {
                 {/* <Pgraph>{userExists}</Pgraph> */}
 
                 <Largebutton
-                    className="registerbtn"
-                    onClick={registerPost}
+                    className="loginbtn"
+                    onClick={loginPost}
                     type="submit"
                 >
                     Submit
                 </Largebutton>
+                <ToastContainer />
             </form>
-            <ToastContainer />
         </Regcontainer>
 
     );
 };
 
-export default RegisterUser;
+export default LoginUser;
