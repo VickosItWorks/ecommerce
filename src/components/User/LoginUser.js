@@ -45,7 +45,7 @@ const LoginUser = () => {
         if (user && accessToken) {
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('userData', JSON.stringify(user));
-            toast.success("algo");
+            toast.success(`User ${user.username} logged in successfully!`);
         } else {
             toast.error(loginData);
         }

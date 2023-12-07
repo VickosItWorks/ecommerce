@@ -42,7 +42,7 @@ const RegisterUser = () => {
         const registerData = await requestPost({ pathUrl: 'register', payload });
         const { user, accessToken } = registerData;
         if (user && accessToken) {
-            toast.success("algo");
+            toast.success(`User ${user.username} registered successfully!`);
         } else {
             toast.error(registerData);
         }
