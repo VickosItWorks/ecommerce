@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
+import { useState } from "react";
 import styled from "styled-components";
 import { FaReact, FaShoppingCart } from "react-icons/fa";
 
@@ -7,7 +9,7 @@ const ContainerHeader = styled.div`
   display: flex;
   background-color: #164863;
   color: #fff;
-  padding: 0.2em;
+  padding: 1em;
   flex-direction: column;
   flex-wrap: wrap;
 `;
@@ -26,7 +28,6 @@ const Navigator = styled.nav`
   flex-wrap: wrap;
   padding: 1em;
   align-items: center;
-
 `;
 
 const Item = styled.li`
@@ -39,8 +40,8 @@ const StyledLink = styled(Link)`
     color: #fff;
     text-decoration: none;
   }
-  `;
-  
+`;
+
 const MenuItem = styled.div`
   display: flex;
   flex-direction: row;
@@ -73,30 +74,60 @@ const SearchContainer = styled.div`
   padding: 0.5em;
   align-items: center;
   justify-content: center;
+  width: 80%;
+  align-self: center;
 `;
 
-
 const Navbar = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <ContainerHeader>
       <SearchContainer>
-        <SeachBox type="text" placeholder="Search..."/>
+        <SeachBox
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleChange}
+        />
       </SearchContainer>
       <Navigator>
-        <Logo> <FaReact></FaReact></Logo>
+        <Logo>
+          {" "}
+          <FaReact></FaReact>
+        </Logo>
         <MenuItem>
-          <Item><StyledLink to="/">Home</StyledLink></Item>
-          <Item><StyledLink to="/product">Products</StyledLink></Item>
-          <Item><StyledLink to="/category">Categories</StyledLink></Item>
+          <Item>
+            <StyledLink to="/">Home</StyledLink>
+          </Item>
+          <Item>
+            <StyledLink to="/product">Products</StyledLink>
+          </Item>
+          <Item>
+            <StyledLink to="/category">Categories</StyledLink>
+          </Item>
         </MenuItem>
         <MenuUser>
-          <Item><StyledLink to="/login">Login</StyledLink></Item>
-          <Item><StyledLink to="/register">Register</StyledLink></Item>
-          <Item><StyledLink to="/cart"><FaShoppingCart></FaShoppingCart></StyledLink></Item>
+          <Item>
+            <StyledLink to="/login">Login</StyledLink>
+          </Item>
+          <Item>
+            <StyledLink to="/register">Register</StyledLink>
+          </Item>
+          <Item>
+            <StyledLink to="/cart">
+              <FaShoppingCart></FaShoppingCart>
+            </StyledLink>
+          </Item>
         </MenuUser>
       </Navigator>
     </ContainerHeader>
   );
-}
+};
 
 export default Navbar;
