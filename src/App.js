@@ -7,7 +7,7 @@ import BannerCarousel from "./components/BannerCarousel/BannerCarousel";
 import Home from "./components/Home/Home";
 import Category from "./components/Category/Category";
 import Product from "./components/Product/Product";
-import ProductDetail from "./components/Product/ProductDetail";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 import RegisterUser from "./components/User/RegisterUser";
 import LoginUser from "./components/User/LoginUser";
 
