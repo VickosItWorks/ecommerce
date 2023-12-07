@@ -1,4 +1,4 @@
-import React from "react";
+import React, {createContext, useState} from "react";
 import "./App.css";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -11,9 +11,13 @@ import ProductDetail from "./components/ProductDetail/ProductDetail";
 import RegisterUser from "./components/User/RegisterUser";
 import LoginUser from "./components/User/LoginUser";
 
+export const ProductContext = createContext();
+
 function App() {
+const [products, setProducts] =  useState([]);
+
   return (
-    <>
+    <ProductContext.Provider value={{products, setProducts}}>
       <Router>
         <Navbar />
         <BannerCarousel />
@@ -27,7 +31,7 @@ function App() {
         </Routes>
       </Router>
       <ToastContainer />
-    </>
+      </ProductContext.Provider>
   );
 }
 

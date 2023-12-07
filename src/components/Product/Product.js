@@ -1,7 +1,7 @@
-import React from "react";
-import { useFetch } from "../../hooks/useFetch";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ProductContext } from "../../App";
 
 const CardContainer = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const DetailsCard = styled.div`
 `;
 
 const Product = () => {
-  const { data, error } = useFetch("/products");
+  const {products} = useContext(ProductContext);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -75,10 +75,9 @@ const Product = () => {
   return (
     <>
       <h1>Products</h1>
-      {error && <p>{error}</p>}
       <CardContainer>
-        {data &&
-          data.map((product) => (
+        {products &&
+          products.map((product) => (
             <Card key={product.id} onClick={() => handleClick(product.id)}>
               <ImgCard>
                 <img src={product.image} alt="" />

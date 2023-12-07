@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useDebounce } from "../../hooks/useDebounce";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ProductContext } from "../../App";
 import styled from "styled-components";
 
 const SeachBox = styled.input`
@@ -26,13 +27,31 @@ const SearchContainer = styled.div`
 `;
 
 const Search = () => {
+  const productContext = useContext(ProductContext);
+  console.log(productContext);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const baseUrl = "http://localhost:5500";
   
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
-    console.log(debouncedSearchTerm);
   };
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const res = await fetch(baseUrl +'/products?q='+ debouncedSearchTerm, {headers: { "Authorization": `Bearer ${localStorage.getItem('accessToken')}`}});
+        const json = await res.json();
+        productContext.setProducts(json);
+        console.log(json);
+      };
+      fetchData();
+    }
+
+    catch (error) {
+      console.error(error);
+    }
+  }, [debouncedSearchTerm]);
 
  return (
   <SearchContainer>
