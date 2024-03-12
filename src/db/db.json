@@ -1,0 +1,728 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Pequeños Electrodomésticos",
+      "image": "https://via.placeholder.com/150",
+      "description": "Pequeños Electrodomésticos"
+    },
+    {
+      "id": 2,
+      "name": "Grandes Electrodomésticos",
+      "image": "https://via.placeholder.com/150",
+      "description": "Grandes Electrodomésticos"
+    },
+    {
+      "id": 3,
+      "name": "Cocina",
+      "image": "https://via.placeholder.com/150",
+      "description": "Cocina"
+    },
+    {
+      "id": 4,
+      "name": "Lavado",
+      "image": "https://via.placeholder.com/150",
+      "description": "Lavado"
+    },
+    {
+      "id": 5,
+      "name": "Climatización",
+      "image": "https://via.placeholder.com/150",
+      "description": "Climatización"
+    },
+    {
+      "id": 6,
+      "name": "TV y Video",
+      "image": "https://via.placeholder.com/150",
+      "description": "TV y Video"
+    },
+    {
+      "id": 7,
+      "name": "Audio",
+      "image": "https://via.placeholder.com/150",
+      "description": "Audio"
+    },
+    {
+      "id": 8,
+      "name": "Cuidado Personal",
+      "image": "https://via.placeholder.com/150",
+      "description": "Cuidado Personal"
+    },
+    {
+      "id": 9,
+      "name": "Accesorios",
+      "image": "https://via.placeholder.com/150",
+      "description": "Accesorios"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Cafetera Nespresso Essenza Mini",
+      "description": "Cafetera Nespresso Essenza Mini",
+      "price": 9999,
+      "discount": 10,
+      "stock": 10,
+      "category": 1,
+      "rate": "5",
+      "reviews": [
+        {
+          "id": 1,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        },
+        {
+          "id": 2,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        }
+      ],
+      "about": "Cafetera Nespresso Essenza Mini",
+      "specifications": [
+        {
+          "id": 1,
+          "name": "Marca",
+          "value": "Nespresso"
+        },
+        {
+          "id": 2,
+          "name": "Modelo",
+          "value": "Essenza Mini"
+        },
+        {
+          "id": 3,
+          "name": "Tipo de cafetera",
+          "value": "Cápsulas"
+        },
+        {
+          "id": 4,
+          "name": "Capacidad de la jarra",
+          "value": "0.6 L"
+        },
+        {
+          "id": 5,
+          "name": "Presión",
+          "value": "19 bar"
+        },
+        {
+          "id": 6,
+          "name": "Potencia",
+          "value": "1250 W"
+        },
+        {
+          "id": 7,
+          "name": "Color",
+          "value": "Neg"
+        }
+      ],
+      "images": [
+        {
+          "id": 1,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 2,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 3,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 4,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 5,
+          "url": "https://via.placeholder.com/150"
+        }
+      ]    
+    },
+    {
+      "id": 2,
+      "name": "Smart TV 4K 50\" Samsung",
+      "description": "Smart TV 4K 50\" Samsung",
+      "price": 9999,
+      "discount": 10,
+      "stock": 10,
+      "category": 6,
+      "rate": "5",
+      "reviews": [
+        {
+          "id": 1,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        },
+        {
+          "id": 2,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        }
+      ],
+      "about": "Smart TV 4K 50\" Samsung",
+      "specifications": [
+        {
+          "id": 1,
+          "name": "Marca",
+          "value": "Samsung"
+        },
+        {
+          "id": 2,
+          "name": "Modelo",
+          "value": "50RU7100"
+        },
+        {
+          "id": 3,
+          "name": "Resolución",
+          "value": "4K"
+        },
+        {
+          "id": 4,
+          "name": "Tamaño de pantalla",
+          "value": "50\""
+        },
+        {
+          "id": 5,
+          "name": "Tecnología de pantalla",
+          "value": "LED"
+        },
+        {
+          "id": 6,
+          "name": "Sistema operativo",
+          "value": "Tizen"
+        },
+        {
+          "id": 7,
+          "name": "Conexiones",
+          "value": "3 HDMI, 2 USB"
+        }
+      ],
+      "images": [
+        {
+          "id": 1,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 2,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 3,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 4,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 5,
+          "url": "https://via.placeholder.com/150"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Lavarropas Automático 8kg Samsung",
+      "description": "Lavarropas Automático 8kg Samsung",
+      "price": 9999,
+      "discount": 10,
+      "stock": 10,
+      "category": 4,
+      "rate": "5",
+      "reviews": [
+        {
+          "id": 1,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        },
+        {
+          "id": 2,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        }
+      ],
+      "about": "Lavarropas Automático 8kg Samsung",
+      "specifications": [
+        {
+          "id": 1,
+          "name": "Marca",
+          "value": "Samsung"
+        },
+        {
+          "id": 2,
+          "name": "Modelo",
+          "value": "WW80J5410GX"
+        },
+        {
+          "id": 3,
+          "name": "Tipo de carga",
+          "value": "Frontal"
+        },
+        {
+          "id": 4,
+          "name": "Capacidad de carga",
+          "value": "8 kg"
+        },
+        {
+          "id": 5,
+          "name": "Velocidad de centrifugado",
+          "value": "1400 RPM"
+        },
+        {
+          "id": 6,
+          "name": "Eficiencia energética",
+          "value": "A+++"
+        },
+        {
+          "id": 7,
+          "name": "Color",
+          "value": "Gris"
+        }
+      ],
+      "images": [
+        {
+          "id": 1,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 2,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 3,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 4,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 5,
+          "url": "https://via.placeholder.com/150"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Heladera con Freezer 320L Samsung",
+      "description": "Heladera con Freezer 320L Samsung",
+      "price": 9999,
+      "discount": 10,
+      "stock": 10,
+      "category": 2,
+      "rate": "5",
+      "reviews": [
+        {
+          "id": 1,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        },
+        {
+          "id": 2,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        }
+      ],
+      "about": "Heladera con Freezer 320L Samsung",
+      "specifications": [
+        {
+          "id": 1,
+          "name": "Marca",
+          "value": "Samsung"
+        },
+        {
+          "id": 2,
+          "name": "Modelo",
+          "value": "RT32K5030S8"
+        },
+        {
+          "id": 3,
+          "name": "Tipo de enfriamiento",
+          "value": "No Frost"
+        },
+        {
+          "id": 4,
+          "name": "Capacidad",
+          "value": "320 L"
+        },
+        {
+          "id": 5,
+          "name": "Eficiencia energética",
+          "value": "A+"
+        },
+        {
+          "id": 6,
+          "name": "Color",
+          "value": "Inox"
+        },
+        {
+          "id": 7,
+          "name": "Dispensador de agua",
+          "value": "No"
+        }
+      ],
+      "images": [
+        {
+          "id": 1,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 2,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 3,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 4,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 5,
+          "url": "https://via.placeholder.com/150"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Aire Acondicionado Split 3000W Samsung",
+      "description": "Aire Acondicionado Split 3000W Samsung",
+      "price": 9999,
+      "discount": 10,
+      "stock": 10,
+      "category": 5,
+      "rate": "5",
+      "reviews": [
+        {
+          "id": 1,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        },
+        {
+          "id": 2,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        }
+      ],
+      "about": "Aire Acondicionado Split 3000W Samsung",
+      "specifications": [
+        {
+          "id": 1,
+          "name": "Marca",
+          "value": "Samsung"
+        },
+        {
+          "id": 2,
+          "name": "Modelo",
+          "value": "AR12MVFHGWK"
+        },
+        {
+          "id": 3,
+          "name": "Tipo de aire acondicionado",
+          "value": "Split"
+        },
+        {
+          "id": 4,
+          "name": "Capacidad de enfriamiento",
+          "value": "3000 W"
+        },
+        {
+          "id": 5,
+          "name": "Eficiencia energética",
+          "value": "A+"
+        },
+        {
+          "id": 6,
+          "name": "Color",
+          "value": "Blanco"
+        },
+        {
+          "id": 7,
+          "name": "Tipo de gas",
+          "value": "R410A"
+        }
+      ],
+      "images": [
+        {
+          "id": 1,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 2,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 3,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 4,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 5,
+          "url": "https://via.placeholder.com/150"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Secarropas 5kg Kohinoor",
+      "description": "Secarropas 5kg Kohinoor",
+      "price": 9999,
+      "discount": 10,
+      "stock": 10,
+      "category": 4,
+      "rate": "5",
+      "reviews": [
+        {
+          "id": 1,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        },
+        {
+          "id": 2,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        }
+      ],
+      "about": "Secarropas 5kg Kohinoor",
+      "specifications": [
+        {
+          "id": 1,
+          "name": "Marca",
+          "value": "Kohinoor"
+        },
+        {
+          "id": 2,
+          "name": "Modelo",
+          "value": "KSD-50"
+        },
+        {
+          "id": 3,
+          "name": "Tipo de secarropas",
+          "value": "Centrifugo"
+        },
+        {
+          "id": 4,
+          "name": "Capacidad de carga",
+          "value": "5 kg"
+        },
+        {
+          "id": 5,
+          "name": "Potencia",
+          "value": "2800 W"
+        },
+        {
+          "id": 6,
+          "name": "Color",
+          "value": "Blanco"
+        },
+        {
+          "id": 7,
+          "name": "Material del tambor",
+          "value": "Acero inoxidable"
+        }
+      ],
+      "images": [
+        {
+          "id": 1,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 2,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 3,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 4,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 5,
+          "url": "https://via.placeholder.com/150"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Microondas 20L Samsung",
+      "description": "Microondas 20L Samsung",
+      "price": 9999,
+      "discount": 10,
+      "stock": 10,
+      "category": 1,
+      "rate": "5",
+      "reviews": [
+        {
+          "id": 1,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        },
+        {
+          "id": 2,
+          "comment": "Comentario de prueba",
+          "rate": 5,
+          "user": 1
+        }
+      ],
+      "about": "Microondas 20L Samsung",
+      "specifications": [
+        {
+          "id": 1,
+          "name": "Marca",
+          "value": "Samsung"
+        },
+        {
+          "id": 2,
+          "name": "Modelo",
+          "value": "ME83X"
+        },
+        {
+          "id": 3,
+          "name": "Capacidad",
+          "value": "20 L"
+        },
+        {
+          "id": 4,
+          "name": "Potencia",
+          "value": "800 W"
+        },
+        {
+          "id": 5,
+          "name": "Color",
+          "value":"8 kg"
+        },
+        {
+          "id": 6,
+          "name": "Color",
+          "value": "Blanco"
+        },
+        {
+          "id": 7,
+          "name": "Material de la cavidad",
+          "value": "Cerámica"
+        }
+      ],
+      "images": [
+        {
+          "id": 1,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 2,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 3,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 4,
+          "url": "https://via.placeholder.com/150"
+        },
+        {
+          "id": 5,
+          "url": "https://via.placeholder.com/150"
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@admin.com",
+      "password": "$2a$10$xwqd2j9vWEu8RLi9m1h/Bu0bOGgVLgqZQkDWD0xALGXFJvNndAtGq",
+      "username": "admin",
+      "id": 1
+    }
+  ],
+  "cart": [
+    {
+      "userId": 1,
+      "products": [
+        {
+          "productId": 1,
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "orders": [],
+  "reviews": [
+    {
+      "id": 1,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 1
+    },
+    {
+      "id": 2,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 2
+    },
+    {
+      "id": 3,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 3
+    },
+    {
+      "id": 4,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 4
+    },
+    {
+      "id": 5,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 5
+    },
+    {
+      "id": 6,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 6
+    },
+    {
+      "id": 7,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 7
+    },
+    {
+      "id": 8,
+      "comment": "Comentario de prueba",
+      "rate": 5,
+      "user": 1,
+      "productId": 8
+    }
+  ],
+  "wishlist": [],
+  "coupons": []
+}

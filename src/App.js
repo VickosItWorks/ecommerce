@@ -12,6 +12,7 @@ import RegisterUser from "./components/User/RegisterUser";
 import LoginUser from "./components/User/LoginUser";
 
 export const ProductContext = createContext();
+export const CartContext = createContext();
 
 function App() {
 const [products, setProducts] =  useState([]);
@@ -20,7 +21,7 @@ const [products, setProducts] =  useState([]);
     <ProductContext.Provider value={{products, setProducts}}>
       <Router>
         <Navbar />
-        <BannerCarousel />
+        {/* <BannerCarousel /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product" element={<Product />} />
