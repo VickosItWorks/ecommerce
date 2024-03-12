@@ -31,6 +31,7 @@ const Search = () => {
   console.log(productContext);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  
   const baseUrl = "http://localhost:5500";
   
   const handleChange = (e) => {
@@ -57,7 +58,7 @@ const Search = () => {
   <SearchContainer>
   <SeachBox
     type="text"
-    placeholder="Search..."
+    placeholder="Search a product..."
     value={searchTerm}
     onChange={handleChange}
   />
