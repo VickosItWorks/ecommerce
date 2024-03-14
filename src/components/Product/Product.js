@@ -67,6 +67,7 @@ const DetailsCard = styled.div`
 
 const Product = () => {
   const { data, error } = useFetch("/products");
+  console.log("SOMETHING",data);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
