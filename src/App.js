@@ -14,12 +14,15 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 
 export const ProductContext = createContext();
 export const CartContext = createContext();
+export const UserContext = createContext();
 
 function App() {
 const [products, setProducts] =  useState([]);
+const [user, setUser] =  useState('');
 
   return (
     <ProductContext.Provider value={{products, setProducts}}>
+      <UserContext.Provider value={{user, setUser}}>
       <Router>
         <Navbar />
         {/* <BannerCarousel /> */}
@@ -34,6 +37,7 @@ const [products, setProducts] =  useState([]);
         </Routes>
       </Router>
       <ToastContainer />
+      </UserContext.Provider>
       </ProductContext.Provider>
   );
 }

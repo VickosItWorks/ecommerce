@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
@@ -60,59 +60,61 @@ export const RemoveButton = styled.button`
 `;
 
 const ShoppingCart = () => {
-  const { id } = useParams();
-  //const { data, error } = useFetch(`/cart/?userid=1`);
-  const { data, error } = useFetch(`/cart/1`);
-
-  //_embed
-
-  //const userProducts = [...data.products];
-
-
-  const handleRemoveClick = (id) => {
-    //deleteCartItem({pathUrl: `cart/${id}?productId=2`});
-    //hacer el put, tomar el response y usar el useState para modificar el
-    const updateBody = {
-        "userId": 1,
-      "products": [
-        {
-          "productId": 1,
-          "quantity": 1
-        },
-        {
-          "productId": 4,
-          "quantity": 2
+    //const { id } = useParams();
+    const id = '1';
+    const { data, error } = useFetch(`/cart/${id}`);
+    const [cartItems, setCartItems] = useState({});
+     
+    useEffect(()=> {
+        if(data){
+            console.log('ESTO ENVIO', data);
+            setCartItems(data);
         }
-      ]
+    }, [data])
+
+    console.log('ASI QUEDA CART ITEMS', cartItems);
+
+    const removeItemFromCart = async (productId) => {
+        //_embed
+        const updateBody = {
+            "userId": 1
+        }
+
+       const products = [];
+       for (const item of cartItems.products){
+        if (item.productId != productId){
+            products.push(item);
+        }
+       }
+
+       updateBody.products = products;
+
+       const newCartItem =  await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
+       setCartItems(newCartItem); 
+
     }
-    updateCartItem({pathUrl: `cart/${id}`, updateBody});
-  }
+
+
     return (
         <div>
             {error && <p>Error</p>}
             <Container>
-        <Title>Shopping Cart</Title>
-        <CartWrapper>
-          <Item>
-            <ItemImage src="https://via.placeholder.com/100" alt="Product 1" />
-            <ItemDetails>
-              <ItemTitle>Product 1</ItemTitle>
-              <ItemPrice>$7.99</ItemPrice>
-              <RemoveButton onClick={() => handleRemoveClick('1')}>Remove</RemoveButton>
-            </ItemDetails>
-          </Item>
-          <Item>
-            <ItemImage src="https://via.placeholder.com/100" alt="Product 2" />
-            <ItemDetails>
-              <ItemTitle>Product 2</ItemTitle>
-              <ItemPrice>$12.03</ItemPrice>
-              <RemoveButton>Remove</RemoveButton>
-            </ItemDetails>
-          </Item>
-        </CartWrapper>
-      </Container>
+                <Title>Shopping Cart</Title>
+                <CartWrapper>
+                    {cartItems.products && cartItems.products.map((shopitem) => (
+                        <Item key={shopitem.productId}>
+                            <ItemImage src={shopitem.product.images[0].url} alt={shopitem.product.description} />
+                            <ItemDetails>
+                                <ItemTitle>{shopitem.product.name}</ItemTitle>
+                                <ItemPrice>${shopitem.product.price}</ItemPrice>
+                                <RemoveButton onClick={() => removeItemFromCart(shopitem.productId)}>Remove</RemoveButton>
+                            </ItemDetails>
+                        </Item>
+                    ))}
+                </CartWrapper>
+            </Container>
         </div>
     );
-  };
-  
-  export default ShoppingCart;
+};
+
+export default ShoppingCart;

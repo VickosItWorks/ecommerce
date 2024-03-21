@@ -6,9 +6,10 @@ const updateCartItem = async ({ pathUrl, updateBody}) => {
         "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
     },
     body: JSON.stringify(updateBody)
-    }).then(response => response.json());
-    console.log('DATA INSIDE THE carhelper', data);
-    return data;
+    });
+
+    const responseData = await data.json();
+    return responseData;
   }
   
   export default updateCartItem;
