@@ -223,7 +223,7 @@ const ProductDetail = () => {
 
   return (
     <div>
-      <h1>Product Detail</h1>
+      <h1>Product Details</h1>
       {error && <p>{error}</p>}
       <Container>
         <LeftPanel>
