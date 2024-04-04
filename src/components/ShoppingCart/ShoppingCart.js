@@ -52,10 +52,38 @@ export const RemoveButton = styled.button`
   border: none;
   border-radius: 3px;
   padding: 5px 10px;
+  margin: 5px;
   cursor: pointer;
 
   &:hover {
     background-color: #ff483f;
+  }
+`;
+
+const QuantitySelectorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  max-width: 150px;
+`;
+
+const QuantityInput = styled.input`
+  width: 40px;
+  text-align: center;
+`;
+
+const QuantityButton = styled.div`
+  width: 15px;
+  height: 15px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  &:hover {
+    background-color: #e0e0e0;
   }
 `;
 
@@ -64,15 +92,13 @@ const ShoppingCart = () => {
     const id = '1';
     const { data, error } = useFetch(`/cart/${id}`);
     const [cartItems, setCartItems] = useState({});
-     
-    useEffect(()=> {
-        if(data){
-            console.log('ESTO ENVIO', data);
+    const [prodQty, setProdQty] = useState(1);
+
+    useEffect(() => {
+        if (data) {
             setCartItems(data);
         }
     }, [data])
-
-    console.log('ASI QUEDA CART ITEMS', cartItems);
 
     const removeItemFromCart = async (productId) => {
         //_embed
@@ -80,18 +106,33 @@ const ShoppingCart = () => {
             "userId": 1
         }
 
-       const products = [];
-       for (const item of cartItems.products){
-        if (item.productId != productId){
-            products.push(item);
+        const products = cartItems.products.filter(prod => prod.productId != productId);
+
+        updateBody.products = products;
+
+        const newCartItem = await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
+        setCartItems(newCartItem);
+
+    }
+
+    const updateCartQty = async (productId) => {
+        const updateBody = {
+            "userId": 1
         }
-       }
 
-       updateBody.products = products;
+        const products = [];
 
-       const newCartItem =  await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
-       setCartItems(newCartItem); 
+        for (const item of cartItems.products) {
+            if (item.productId != productId) {
+                products.push(item);
+            } else {
+                item.quantity = prodQty;
+                products.push(item);
+            }
+        }
 
+        updateBody.products = products;
+        await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
     }
 
 
@@ -107,6 +148,11 @@ const ShoppingCart = () => {
                             <ItemDetails>
                                 <ItemTitle>{shopitem.product.name}</ItemTitle>
                                 <ItemPrice>${shopitem.product.price}</ItemPrice>
+                                <QuantitySelectorWrapper>
+                                    <QuantityButton >-</QuantityButton>
+                                    <QuantityInput type="number" value={shopitem.quantity} />
+                                    <QuantityButton >+</QuantityButton>
+                                </QuantitySelectorWrapper>
                                 <RemoveButton onClick={() => removeItemFromCart(shopitem.productId)}>Remove</RemoveButton>
                             </ItemDetails>
                         </Item>
