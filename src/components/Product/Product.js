@@ -41,9 +41,6 @@ const Card = styled.div`
   }
 `;
 
-const ImgCard = styled.div`
-  display: flex;
-`;
 
 const DetailsCard = styled.div`
   display: flex;
@@ -63,6 +60,11 @@ const DetailsCard = styled.div`
     font-size: 0.8em;
     margin: 0.5em 0;
   } 
+  img {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+  }
 `;
 
 const Product = () => {
@@ -82,11 +84,9 @@ const Product = () => {
         {data &&
           data.map((product) => (
             <Card key={product.id} onClick={() => handleClick(product.id)}>
-              <ImgCard>
-                <img src={product.image} alt="" />
-              </ImgCard>
               <DetailsCard>
                 <h3>{product.name}</h3>
+                <img src={product.images[0].url} alt="" />
                 <p>Description: {product.description}</p>
                 <p>$ {product.price}</p>
               </DetailsCard>
