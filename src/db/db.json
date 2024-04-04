@@ -59,27 +59,11 @@
     {
       "id": 1,
       "name": "Cafetera Nespresso Essenza Mini",
-      "description": "Cafetera Nespresso Essenza Mini",
+      "description": "Descripción de la cafetera Nespresso Essenza Mini",
       "price": 9999,
       "discount": 10,
       "stock": 10,
       "category": 1,
-      "rate": "5",
-      "reviews": [
-        {
-          "id": 1,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        },
-        {
-          "id": 2,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        }
-      ],
-      "about": "Cafetera Nespresso Essenza Mini",
       "specifications": [
         {
           "id": 1,
@@ -120,25 +104,25 @@
       "images": [
         {
           "id": 1,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/76/300/300"
         },
         {
           "id": 2,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/77/300/300"
         },
         {
           "id": 3,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/78/300/300"
         },
         {
           "id": 4,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/79/300/300"
         },
         {
           "id": 5,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/80/300/300"
         }
-      ]    
+      ]
     },
     {
       "id": 2,
@@ -148,22 +132,6 @@
       "discount": 10,
       "stock": 10,
       "category": 6,
-      "rate": "5",
-      "reviews": [
-        {
-          "id": 1,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        },
-        {
-          "id": 2,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        }
-      ],
-      "about": "Smart TV 4K 50\" Samsung",
       "specifications": [
         {
           "id": 1,
@@ -204,23 +172,23 @@
       "images": [
         {
           "id": 1,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/76/300/300"
         },
         {
           "id": 2,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/77/300/300"
         },
         {
           "id": 3,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/78/300/300"
         },
         {
           "id": 4,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/79/300/300"
         },
         {
           "id": 5,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/80/300/300"
         }
       ]
     },
@@ -232,22 +200,6 @@
       "discount": 10,
       "stock": 10,
       "category": 4,
-      "rate": "5",
-      "reviews": [
-        {
-          "id": 1,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        },
-        {
-          "id": 2,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        }
-      ],
-      "about": "Lavarropas Automático 8kg Samsung",
       "specifications": [
         {
           "id": 1,
@@ -288,23 +240,23 @@
       "images": [
         {
           "id": 1,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/76/300/300"
         },
         {
           "id": 2,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/77/300/300"
         },
         {
           "id": 3,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/78/300/300"
         },
         {
           "id": 4,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/79/300/300"
         },
         {
           "id": 5,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/80/300/300"
         }
       ]
     },
@@ -316,22 +268,6 @@
       "discount": 10,
       "stock": 10,
       "category": 2,
-      "rate": "5",
-      "reviews": [
-        {
-          "id": 1,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        },
-        {
-          "id": 2,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        }
-      ],
-      "about": "Heladera con Freezer 320L Samsung",
       "specifications": [
         {
           "id": 1,
@@ -372,23 +308,23 @@
       "images": [
         {
           "id": 1,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/76/300/300"
         },
         {
           "id": 2,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/77/300/300"
         },
         {
           "id": 3,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/78/300/300"
         },
         {
           "id": 4,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/79/300/300"
         },
         {
           "id": 5,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/80/300/300"
         }
       ]
     },
@@ -400,22 +336,6 @@
       "discount": 10,
       "stock": 10,
       "category": 5,
-      "rate": "5",
-      "reviews": [
-        {
-          "id": 1,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        },
-        {
-          "id": 2,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        }
-      ],
-      "about": "Aire Acondicionado Split 3000W Samsung",
       "specifications": [
         {
           "id": 1,
@@ -456,23 +376,23 @@
       "images": [
         {
           "id": 1,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/76/300/300"
         },
         {
           "id": 2,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/77/300/300"
         },
         {
           "id": 3,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/78/300/300"
         },
         {
           "id": 4,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/79/300/300"
         },
         {
           "id": 5,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/80/300/300"
         }
       ]
     },
@@ -484,22 +404,6 @@
       "discount": 10,
       "stock": 10,
       "category": 4,
-      "rate": "5",
-      "reviews": [
-        {
-          "id": 1,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        },
-        {
-          "id": 2,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        }
-      ],
-      "about": "Secarropas 5kg Kohinoor",
       "specifications": [
         {
           "id": 1,
@@ -540,23 +444,23 @@
       "images": [
         {
           "id": 1,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/76/300/300"
         },
         {
           "id": 2,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/77/300/300"
         },
         {
           "id": 3,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/78/300/300"
         },
         {
           "id": 4,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/79/300/300"
         },
         {
           "id": 5,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/80/300/300"
         }
       ]
     },
@@ -568,22 +472,6 @@
       "discount": 10,
       "stock": 10,
       "category": 1,
-      "rate": "5",
-      "reviews": [
-        {
-          "id": 1,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        },
-        {
-          "id": 2,
-          "comment": "Comentario de prueba",
-          "rate": 5,
-          "user": 1
-        }
-      ],
-      "about": "Microondas 20L Samsung",
       "specifications": [
         {
           "id": 1,
@@ -608,7 +496,7 @@
         {
           "id": 5,
           "name": "Color",
-          "value":"8 kg"
+          "value": "8 kg"
         },
         {
           "id": 6,
@@ -624,23 +512,23 @@
       "images": [
         {
           "id": 1,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/76/300/300"
         },
         {
           "id": 2,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/77/300/300"
         },
         {
           "id": 3,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/78/300/300"
         },
         {
           "id": 4,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/79/300/300"
         },
         {
           "id": 5,
-          "url": "https://via.placeholder.com/150"
+          "url": "https://picsum.photos/id/80/300/300"
         }
       ]
     }
@@ -651,10 +539,17 @@
       "password": "$2a$10$xwqd2j9vWEu8RLi9m1h/Bu0bOGgVLgqZQkDWD0xALGXFJvNndAtGq",
       "username": "admin",
       "id": 1
+    },
+    {
+      "email": "vgrm@mail.com",
+      "password": "$2a$10$jaJLkLUTfWXlPiCMS5YamesZqDfSDqndzxq.Sk4dApoaUlrDfYrSm",
+      "username": "vgrm",
+      "id": 2
     }
   ],
   "cart": [
     {
+      "id": 1,
       "userId": 1,
       "products": [
         {
@@ -662,35 +557,73 @@
           "quantity": 1
         }
       ]
+    },
+    {
+      "id": 2
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "products": [
+        {
+          "productId": 1,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "products": [
+        {
+          "productId": 2,
+          "quantity": 2
+        }
+      ]
+    }
+  ],
   "reviews": [
     {
       "id": 1,
-      "comment": "Comentario de prueba",
+      "comment": "Cafetera que cumple con las expectativas. Muy recomendable. excelente calidad y precio. La uso todos los días y no me ha dado ningún problema.",
       "rate": 5,
       "user": 1,
       "productId": 1
     },
     {
       "id": 2,
-      "comment": "Comentario de prueba",
-      "rate": 5,
+      "comment": "Ideal para el hogar. Muy buena calidad y precio. La uso todos los días y no me ha dado ningún problema.",
+      "rate": 4.7,
       "user": 1,
-      "productId": 2
+      "productId": 1
     },
     {
       "id": 3,
-      "comment": "Comentario de prueba",
+      "comment": "Super recomendable. Muy buena calidad y precio. La uso todos los días y no me ha dado ningún problema.",
       "rate": 5,
       "user": 1,
-      "productId": 3
+      "productId": 1
     },
     {
       "id": 4,
-      "comment": "Comentario de prueba",
+      "comment": "Comentario de prueba que sea largo para ver como se ve en el front y bla bla bla",
       "rate": 5,
+      "user": 1,
+      "productId": 4
+    },
+    {
+      "id": 4,
+      "comment": "Comentario de prueba muy largo para ver como se ve en el front",
+      "rate": 5,
+      "user": 1,
+      "productId": 4
+    },
+    {
+      "id": 4,
+      "comment": "Comentario de prueba muy largo para ver como se ve en el front",
+      "rate": 1,
       "user": 1,
       "productId": 4
     },
@@ -709,20 +642,39 @@
       "productId": 6
     },
     {
-      "id": 7,
-      "comment": "Comentario de prueba",
+      "userId": 1,
+      "productId": "2",
       "rate": 5,
-      "user": 1,
-      "productId": 7
+      "comment": "This is a great product!",
+      "id": 7
     },
     {
-      "id": 8,
-      "comment": "Comentario de prueba",
+      "userId": 1,
+      "productId": "2",
       "rate": 5,
-      "user": 1,
-      "productId": 8
+      "comment": "asasasasassasa",
+      "id": 8
+    },
+    {
+      "userId": 1,
+      "productId": "2",
+      "rate": 5,
+      "comment": "agagaggaga",
+      "id": 9
+    },
+    {
+      "userId": 1,
+      "productId": "1",
+      "rate": 5,
+      "comment": "2 asdsdadsasdasd",
+      "id": 10
+    },
+    {
+      "userId": 1,
+      "productId": "1",
+      "rate": "1",
+      "comment": "1 asdsdasdad",
+      "id": 11
     }
-  ],
-  "wishlist": [],
-  "coupons": []
+  ]
 }
