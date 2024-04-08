@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./RegisterUser.css";
 import { styled } from "styled-components";
 import { toast } from "react-toastify";
 import requestPost from "./UserAPostHelper";
-
-const Pgraph = styled.p`
-  color: red;
-`;
+import { useNavigate } from "react-router-dom";
 
 const Largebutton = styled.button`
   width: 100%;
@@ -29,60 +26,60 @@ const Regcontainer = styled.div`
 `;
 
 const RegisterUser = () => {
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
-    const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
 
-    const registerPost = async (e) => {
-        e.preventDefault();
-        let payload = {};
-        payload.email = email;
-        payload.password = pass;
-        payload.username = userName;
-        const registerData = await requestPost({ pathUrl: 'register', payload });
-        const { user, accessToken } = registerData;
-        if (user && accessToken) {
-            toast.success(`User ${user.username} registered successfully!`);
-        } else {
-            toast.error(registerData);
-        }
-    };
+  const registerPost = async (e) => {
+    e.preventDefault();
+    let payload = {};
+    payload.email = email;
+    payload.password = pass;
+    payload.username = userName;
+    const registerData = await requestPost({ pathUrl: "register", payload });
+    const { user, accessToken } = registerData;
+    if (user && accessToken) {
+      navigate("/login");
+      toast.success(`User ${user.username} registered successfully!`);
+    } else {
+      toast.error(registerData);
+    }
+  };
 
-    return (
-        <Regcontainer className="container">
-            <h1>Register</h1>
-            <form>
-                <label name="name">Full Name:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    required
-                />
+  return (
+    <Regcontainer className="container">
+      <h1>Register</h1>
+      <form>
+        <label name="name">Full Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          required
+        />
 
-                <label name="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
+        <label name="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-                <label name="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={pass}
-                    onChange={(e) => setPass(e.target.value)}
-                    required
-                />
-                {/* <Pgraph>{userExists}</Pgraph> */}
-
+        <label name="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={pass}
+          onChange={(e) => setPass(e.target.value)}
+          required
+        />
         <Largebutton
           className="registerbtn"
           onClick={registerPost}
@@ -92,7 +89,6 @@ const RegisterUser = () => {
         </Largebutton>
       </form>
     </Regcontainer>
-
   );
 };
 
