@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
 const Container = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ const SidePanel = styled.div`
 `;
 
 const ButtonOrange = styled.button`
-  padding: 0.5em 1em;
+  padding: 0.5em;
   margin: 1em 0;
   background-color: orange;
   color: #fff;
@@ -73,9 +73,9 @@ const List = styled.ul`
       width: 50%;
       height: 50%;
       object-fit: cover;
+      cursor: pointer;
     }
   }
-  cursor: pointer;
 `;
 
 const LeftPanel = styled.div`
@@ -105,14 +105,12 @@ const ReviewContainer = styled.div`
   width: 90%;
   h3 {
     font-size: 1.2em;
-    margin: 0.5em 0;
+    margin-bottom: 1em;
   }
 `;
 
 const ReviewCard = styled.div`
   flex-direction: column;
-  padding: 1em;
-  margin: 1em;
   align-items: justify;
   justify-content: justify;
   text-align: justify;
@@ -127,51 +125,56 @@ const ReviewCard = styled.div`
 const LeaveReview = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1em;
-  margin: 1em;
   align-items: justify;
   justify-content: justify;
   text-align: justify;
   border-top: 1px solid #ccc;
   width: 100%;
   textarea {
-    width: 100%;
+    width: 99%;
     height: 100px;
-    padding: 0.5em;
-    margin: 0.5em 0;
     border: 1px solid #ccc;
     border-radius: 0.5em;
   }
 `;
 
-const ContainerSpecifications = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-  margin: 1em;
+const TableSpecifications = styled.table`
   width: 90%;
-  p {
-    font-size: 1em;
-    margin: 0.5em 0;
+  border-collapse: collapse;
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    width: 30%;
   }
-
+  td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    width: 30%;
+  }
 `;
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { data, error } = useFetch(`/products/${id}`);
-  const { data: reviews } = useFetch(`/reviews?productId=${id}`);
-  const [review, setReview] = useState("");
-  const [rate, setRate] = useState(0);
+  const { data: products, error } = useFetch(`/products/${id}`);
+  const { data: reviews, refetch: refetchReviews } = useFetch(
+    `/reviews?productId=${id}`
+  );
+
+  const [rate, setRate] = useState(1);
   const [image, setImage] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("userData"));
+
   const startRating = (rate) => {
-    const stars = [];
+    let stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= rate) {
         stars.push(<FaStar key={i} color="orange" />);
+      } else if (i - rate < 1) {
+        stars.push(<FaStarHalfAlt key={i} color="orange" />);
       } else {
-        stars.push(<FaStar key={i} color="grey" />);
+        stars.push(<FaRegStar key={i} color="orange" />);
       }
     }
     return stars;
@@ -179,46 +182,67 @@ const ProductDetail = () => {
 
   const submitReview = async (e) => {
     e.preventDefault();
-    const data = await fetch(`http://localhost:5500/reviews`, {
+    const elements = e.target.elements;
+    const body = {
+      userId: user.id,
+      productId: +id,
+      rate: +elements.rate.value,
+      comment: elements.comment.value,
+    };
+
+    await fetch(`http://localhost:5500/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then((response) => response.json());
+
+    refetchReviews();
+  };
+
+  const selectImage = (imageUrl) => {
+    setImage(imageUrl);
+  };
+
+  useEffect(() => {
+    if (products && products.images.length > 0) {
+      setImage(products.images[0].url);
+    }
+  }, [products]);
+
+  useEffect(() => {
+    if (reviews && reviews.length > 0) {
+      console.log("reviews", reviews);
+      calculateAverageRate(reviews);
+    }
+  }, [reviews]);
+
+  const calculateAverageRate = (reviews) => {
+    if (!reviews) return 0;
+
+    let sum = 0;
+    reviews.forEach((review) => {
+      sum += review.rate;
+    });
+
+    let average = sum / reviews.length;
+    return average;
+  };
+
+  const AddToWishlist = async (e) => {
+    e.preventDefault();
+    const data = await fetch(`http://localhost:5500/wishlist`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: 1,
-        productId: id,
-        rate: rate,
-        comment: review,
+        userId: user.id,
+        productId: parseInt(id),
       }),
     }).then((response) => response.json());
     return data;
-  };
-
-  const selectImage = (image) => {
-    setImage(image);
-  };
-
-  useEffect(() => {
-    if (data && data.images.length > 0) {
-      setImage(data.images[0].url);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (rate) {
-      setRate(rate);
-    }
-  }, [rate]);
-
-  const calculateAverageRate = (reviews) => {
-    let sum = 0;
-    reviews.forEach((review) => {
-      sum += review.rate;
-    });
-    let average = sum / reviews.length;
-    average = Math.round(average);
-    console.log("maver", average);
-    return average;
   };
 
   return (
@@ -228,12 +252,12 @@ const ProductDetail = () => {
       <Container>
         <LeftPanel>
           <List>
-            {data &&
-              data.images.map((image) => (
+            {products &&
+              products.images.map((image) => (
                 <li key={image.id}>
                   <img
                     src={image.url}
-                    onClick={() => selectImage(image.url)}
+                    onMouseEnter={() => selectImage(image.url)}
                     alt=""
                   />
                 </li>
@@ -242,17 +266,18 @@ const ProductDetail = () => {
           <DefaultImage src={image} alt="" />
         </LeftPanel>
         <ContainerDetail>
-          {data && (
+          {products && (
             <div>
-              <h3>{data.name}</h3>
-              <p>{data.description}</p>
-              <p>Price: $ {data.price}</p>
+              <h3>{products.name}</h3>
+              <p>{products.description}</p>
+              <h3>$ {products.price}</h3>
               <p>Rate: {startRating(calculateAverageRate(reviews))}</p>
-              <p>Discount: {data.discount} %</p>
+              <p>Discount: {products.discount} %</p>
               <p>
-                Final Price: {data.price - (data.price * data.discount) / 100}
+                Final Price: ${" "}
+                {products.price - (products.price * products.discount) / 100}
               </p>
-              <p>Stock: {data.stock}</p>
+              <p>Stock: {products.stock}</p>
             </div>
           )}
         </ContainerDetail>
@@ -260,45 +285,53 @@ const ProductDetail = () => {
           <ButtonOrange>Add to Cart</ButtonOrange>
           <ButtonOrange>Buy Now</ButtonOrange>
           <hr />
-          <ButtonOrange>Add to Wishlist</ButtonOrange>
+          <ButtonOrange onClick={AddToWishlist}>Add to Wishlist</ButtonOrange>
+          <span>Wishlist</span>
         </SidePanel>
-        <ContainerSpecifications>
-          <h3>Specifications</h3>
-            {data &&
-              data.specifications.map((spec) => (
-                  <p key={spec.id}>
-                    {spec.name}: {spec.value}
-                  </p>
+        <TableSpecifications>
+          <thead>
+            <tr>
+              <th>Specification</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products &&
+              products.specifications.map((spec) => (
+                <tr key={spec.id}>
+                  <td>{spec.name}</td>
+                  <td>{spec.value}</td>
+                </tr>
               ))}
-        </ContainerSpecifications>
+          </tbody>
+        </TableSpecifications>
+
         <ReviewContainer>
           <h3>Reviews</h3>
           {reviews &&
             reviews.map((reviewData) => (
               <ReviewCard key={reviewData.id}>
+                <p>User: {reviewData.userId}</p>
                 <p>Rate: {startRating(reviewData.rate)}</p>
                 <p>{reviewData.comment}</p>
               </ReviewCard>
             ))}
           <LeaveReview>
-            <div>
-              <h3>Leave a Review</h3>
+            <form onSubmit={submitReview}>
+              <h3>Leave your own review</h3>
               <p>Rate: {startRating(rate)} </p>
-
               <input
                 type="range"
                 min="1"
                 max="5"
-                value={rate}
+                name="rate"
+                defaultValue={1}
                 onChange={(e) => setRate(e.target.value)}
               />
-              <textarea
-                placeholder="Leave a Review"
-                value={review}
-                onChange={(e) => setReview(e.target.value)}
-              />
-              <ButtonOrange onClick={submitReview}>Submit Review</ButtonOrange>
-            </div>
+              <textarea placeholder="Leave a comment..." name="comment" />
+              
+              <ButtonOrange type="submit">Submit Review</ButtonOrange>
+            </form>
           </LeaveReview>
         </ReviewContainer>
       </Container>
