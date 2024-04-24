@@ -11,6 +11,7 @@ import ProductDetail from "./components/ProductDetail/ProductDetail";
 import RegisterUser from "./components/User/RegisterUser";
 import LoginUser from "./components/User/LoginUser";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
+import CartCheckout from "./components/ShoppingCart/CartCheckout";
 
 export const ProductContext = createContext();
 export const CartContext = createContext();
@@ -34,6 +35,7 @@ const [user, setUser] =  useState('');
           <Route path="/register" element={<RegisterUser />} />
           <Route path="/login" element={<LoginUser />} />
           <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/checkout" element={<CartCheckout />} />
         </Routes>
       </Router>
       <ToastContainer />

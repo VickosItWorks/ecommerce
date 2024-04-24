@@ -5,48 +5,48 @@ import { useParams } from "react-router-dom";
 import deleteCartItem from './DeleteCarHelper';
 import updateCartItem from './updateCartHelper';
 
-export const Container = styled.div`
+const Container = styled.div`
   max-width: 800px;
   margin: 50px auto;
   padding: 0 20px;
 `;
 
-export const Title = styled.h1`
+const Title = styled.h1`
   text-align: center;
 `;
 
-export const CartWrapper = styled.div`
+const CartWrapper = styled.div`
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
 `;
 
-export const Item = styled.div`
+const Item = styled.div`
   display: flex;
   margin-bottom: 20px;
 `;
 
-export const ItemImage = styled.img`
+const ItemImage = styled.img`
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 5px;
 `;
 
-export const ItemDetails = styled.div`
+const ItemDetails = styled.div`
   margin-left: 20px;
 `;
 
-export const ItemTitle = styled.h2`
+const ItemTitle = styled.h2`
   margin: 0;
 `;
 
-export const ItemPrice = styled.p`
+const ItemPrice = styled.p`
   margin: 5px 0;
 `;
 
-export const RemoveButton = styled.button`
+const RemoveButton = styled.button`
   background-color: #ff6347;
   color: #fff;
   border: none;
@@ -58,6 +58,27 @@ export const RemoveButton = styled.button`
   &:hover {
     background-color: #ff483f;
   }
+`;
+
+const CheckoutButton = styled.button`
+  background-color: #164863;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2a7ca8;
+  }
+`;
+
+//ISSUE HERE
+const PreCheckout = styled.div`
+  display: flex;
+  justifyContent: space-between;
+  alignItems: center;
 `;
 
 const QuantitySelectorWrapper = styled.div`
@@ -92,12 +113,19 @@ const ShoppingCart = () => {
     const id = '1';
     const { data, error } = useFetch(`/cart/${id}`);
     const [cartItems, setCartItems] = useState({});
-    const [prodQty, setProdQty] = useState(1);
+    //const [prodQty, setProdQty] = useState({});
 
     useEffect(() => {
         if (data) {
             setCartItems(data);
         }
+
+        //NOTE: CALLBACK READ 
+
+        // return ()=> {
+        //     console.log('unmounting'); 
+        // };
+        
     }, [data])
 
     const removeItemFromCart = async (productId) => {
@@ -115,7 +143,7 @@ const ShoppingCart = () => {
 
     }
 
-    const updateCartQty = async (productId) => {
+    const updateCartQty = async (productId, prodQty, operation) => {
         const updateBody = {
             "userId": 1
         }
@@ -126,13 +154,14 @@ const ShoppingCart = () => {
             if (item.productId != productId) {
                 products.push(item);
             } else {
-                item.quantity = prodQty;
+                item.quantity = operation === 'plus'? (prodQty + 1) : (prodQty - 1);
                 products.push(item);
             }
         }
 
         updateBody.products = products;
-        await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
+        const newCart = await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
+        setCartItems(newCart);
     }
 
 
@@ -149,15 +178,21 @@ const ShoppingCart = () => {
                                 <ItemTitle>{shopitem.product.name}</ItemTitle>
                                 <ItemPrice>${shopitem.product.price}</ItemPrice>
                                 <QuantitySelectorWrapper>
-                                    <QuantityButton >-</QuantityButton>
+                                    <QuantityButton onClick={() => updateCartQty(shopitem.productId, shopitem.quantity, 'minus')}>-</QuantityButton>
                                     <QuantityInput type="number" value={shopitem.quantity} />
-                                    <QuantityButton >+</QuantityButton>
+                                    <QuantityButton onClick={() => updateCartQty(shopitem.productId, shopitem.quantity, 'plus')}>+</QuantityButton>
                                 </QuantitySelectorWrapper>
                                 <RemoveButton onClick={() => removeItemFromCart(shopitem.productId)}>Remove</RemoveButton>
                             </ItemDetails>
                         </Item>
                     ))}
                 </CartWrapper>
+                <CartWrapper>
+                    <PreCheckout>
+                        <span>Subtotal (2 productos)</span>
+                        <CheckoutButton>Proceed to Checkout</CheckoutButton>
+                    </PreCheckout>
+                    </CartWrapper>
             </Container>
         </div>
     );
