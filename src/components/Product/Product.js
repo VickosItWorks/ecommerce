@@ -1,7 +1,5 @@
-import React, {useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ProductContext } from "../../App";
 import { useFetch } from "../../hooks/useFetch";
 
 const CardContainer = styled.div`
@@ -69,7 +67,6 @@ const DetailsCard = styled.div`
 
 const Product = () => {
   const { data, error } = useFetch("/products");
-  console.log("SOMETHING",data);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
