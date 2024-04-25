@@ -18,6 +18,7 @@ const Title = styled.h1`
 const CartWrapper = styled.div`
   background-color: #fff;
   border-radius: 5px;
+  margin: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
 `;
@@ -77,8 +78,8 @@ const CheckoutButton = styled.button`
 //ISSUE HERE
 const PreCheckout = styled.div`
   display: flex;
-  justifyContent: space-between;
-  alignItems: center;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const QuantitySelectorWrapper = styled.div`
@@ -125,7 +126,7 @@ const ShoppingCart = () => {
         // return ()=> {
         //     console.log('unmounting'); 
         // };
-        
+
     }, [data])
 
     const removeItemFromCart = async (productId) => {
@@ -154,7 +155,7 @@ const ShoppingCart = () => {
             if (item.productId != productId) {
                 products.push(item);
             } else {
-                item.quantity = operation === 'plus'? (prodQty + 1) : (prodQty - 1);
+                item.quantity = operation === 'plus' ? (prodQty + 1) : (prodQty - 1);
                 products.push(item);
             }
         }
@@ -162,6 +163,16 @@ const ShoppingCart = () => {
         updateBody.products = products;
         const newCart = await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
         setCartItems(newCart);
+    }
+
+    const calcSubtotal = (allProds) => {
+        let total = 0;
+
+        allProds.forEach(el => {
+            total += el.quantity * el.product.price;
+        });
+
+        return total;
     }
 
 
@@ -188,11 +199,13 @@ const ShoppingCart = () => {
                     ))}
                 </CartWrapper>
                 <CartWrapper>
-                    <PreCheckout>
-                        <span>Subtotal (2 productos)</span>
-                        <CheckoutButton>Proceed to Checkout</CheckoutButton>
-                    </PreCheckout>
-                    </CartWrapper>
+                    {cartItems.products && (
+                        <PreCheckout>
+                            <div>Subtotal {cartItems.products.length} productos: ${calcSubtotal(cartItems.products)}</div>
+                            <CheckoutButton>Proceed to Checkout</CheckoutButton>
+                        </PreCheckout>
+                    )}
+                </CartWrapper>
             </Container>
         </div>
     );
