@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import deleteCartItem from './DeleteCarHelper';
 import updateCartItem from './updateCartHelper';
+import { CartContext, UserContext } from '../../App';
 
 const Container = styled.div`
   max-width: 800px;
@@ -110,15 +111,26 @@ const QuantityButton = styled.div`
 `;
 
 const ShoppingCart = () => {
-    //const { id } = useParams();
-    const id = '1';
-    const { data, error } = useFetch(`/cart/${id}`);
+    const userContext = useContext(UserContext);
+    let userId;
+    const user = JSON.parse(localStorage.getItem("userData"));
+    console.log('USER',user);
+    // if(user){
+    //     userId = user.id;
+    //     userContext.setUser(user);
+    // }
+    userId = '1';
+    const { data, error } = useFetch(`/cart/${userId}`);
     const [cartItems, setCartItems] = useState({});
-    //const [prodQty, setProdQty] = useState({});
+    const cartContext = useContext(CartContext);
 
     useEffect(() => {
+        console.log('USERID',userId);
+        if(!userId) return;
         if (data) {
             setCartItems(data);
+            cartContext.setCart(cartItems);
+            console.log(cartContext);
         }
 
         //NOTE: CALLBACK READ 
@@ -129,24 +141,23 @@ const ShoppingCart = () => {
 
     }, [data])
 
-    const removeItemFromCart = async (productId) => {
+    const removeItemFromCart = async ({productId, userId}) => {
         //_embed
         const updateBody = {
-            "userId": 1
+            userId
         }
 
         const products = cartItems.products.filter(prod => prod.productId != productId);
 
         updateBody.products = products;
 
-        const newCartItem = await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
+        const newCartItem = await updateCartItem({ pathUrl: `cart/${userId}`, updateBody });
         setCartItems(newCartItem);
-
     }
 
-    const updateCartQty = async (productId, prodQty, operation) => {
+    const updateCartQty = async ({productId, prodQty, operation, userId}) => {
         const updateBody = {
-            "userId": 1
+            userId
         }
 
         const products = [];
@@ -161,7 +172,7 @@ const ShoppingCart = () => {
         }
 
         updateBody.products = products;
-        const newCart = await updateCartItem({ pathUrl: `cart/${id}`, updateBody });
+        const newCart = await updateCartItem({ pathUrl: `cart/${userId}`, updateBody });
         setCartItems(newCart);
     }
 
@@ -189,11 +200,11 @@ const ShoppingCart = () => {
                                 <ItemTitle>{shopitem.product.name}</ItemTitle>
                                 <ItemPrice>${shopitem.product.price}</ItemPrice>
                                 <QuantitySelectorWrapper>
-                                    <QuantityButton onClick={() => updateCartQty(shopitem.productId, shopitem.quantity, 'minus')}>-</QuantityButton>
+                                    <QuantityButton onClick={() => updateCartQty({productId: shopitem.productId, prodQty: shopitem.quantity, operation:'minus', userId})}>-</QuantityButton>
                                     <QuantityInput type="number" value={shopitem.quantity} />
-                                    <QuantityButton onClick={() => updateCartQty(shopitem.productId, shopitem.quantity, 'plus')}>+</QuantityButton>
+                                    <QuantityButton onClick={() => updateCartQty({productId: shopitem.productId, prodQty: shopitem.quantity, operation: 'plus', userId})}>+</QuantityButton>
                                 </QuantitySelectorWrapper>
-                                <RemoveButton onClick={() => removeItemFromCart(shopitem.productId)}>Remove</RemoveButton>
+                                <RemoveButton onClick={() => removeItemFromCart({productId: shopitem.productId, userId})}>Remove</RemoveButton>
                             </ItemDetails>
                         </Item>
                     ))}

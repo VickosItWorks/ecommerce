@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
+import { CartContext, UserContext } from '../../App';
+import { Plus } from 'lucide-react';
+import Modal from './Modal';
 
 const Container = styled.div`
     max-width: 800px;
@@ -52,18 +55,13 @@ const CheckoutButton = styled.input`
 `;
 
 const CartCheckout = () => {
+    const [open, setOpen] = useState(false);
+    const userContext = useContext(UserContext);
+    console.log(userContext);
     const personalData = {
         fullName: "Jane Doe",
         email: "janedoe@algo.com",
         phoneNumber: "6895988766"
-    };
-
-    const shippingAddress = {
-        street: "10th Main St",
-        city: "Beverly Hills",
-        state: "CA",
-        zipCode: "90210",
-        country: "Country"
     };
 
     return (
@@ -86,26 +84,9 @@ const CartCheckout = () => {
             </DataCard>
             <DataCard>
                 <h2>Shipping Address</h2>
-                <FieldGroup>
-                    <Label>Street:</Label>
-                    <Text>{shippingAddress.street}</Text>
-                </FieldGroup>
-                <FieldGroup>
-                    <Label>City:</Label>
-                    <Text>{shippingAddress.city}</Text>
-                </FieldGroup>
-                <FieldGroup>
-                    <Label>State:</Label>
-                    <Text>{shippingAddress.state}</Text>
-                </FieldGroup>
-                <FieldGroup>
-                    <Label>Zip Code:</Label>
-                    <Text>{shippingAddress.zipCode}</Text>
-                </FieldGroup>
-                <FieldGroup>
-                    <Label>Country:</Label>
-                    <Text>{shippingAddress.country}</Text>
-                </FieldGroup>
+                <button onClick={() => setOpen(true) }><Plus/>Add Details</button>
+                <Modal open={open} setOpen={setOpen}/>
+
             </DataCard>
             <DataCard>
                 <h2>Credit Card Information</h2>

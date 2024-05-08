@@ -11,7 +11,7 @@ import ProductDetail from "./components/ProductDetail/ProductDetail";
 import RegisterUser from "./components/User/RegisterUser";
 import LoginUser from "./components/User/LoginUser";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
-import CartCheckout from "./components/ShoppingCart/CartCheckout";
+import CartCheckout from "./components/CartCheckout/CartCheckout";
 
 export const ProductContext = createContext();
 export const CartContext = createContext();
@@ -20,10 +20,12 @@ export const UserContext = createContext();
 function App() {
 const [products, setProducts] =  useState([]);
 const [user, setUser] =  useState('');
+const [cart, setCart] =  useState({});
 
   return (
     <ProductContext.Provider value={{products, setProducts}}>
       <UserContext.Provider value={{user, setUser}}>
+      <CartContext.Provider value={{cart, setCart}}>
       <Router>
         <Navbar />
         {/* <BannerCarousel /> */}
@@ -39,6 +41,7 @@ const [user, setUser] =  useState('');
         </Routes>
       </Router>
       <ToastContainer />
+      </CartContext.Provider>
       </UserContext.Provider>
       </ProductContext.Provider>
   );
