@@ -199,6 +199,7 @@ const ProductDetail = () => {
     }).then((response) => response.json());
 
     refetchReviews();
+    e.target.reset();
   };
 
   const selectImage = (imageUrl) => {
@@ -311,8 +312,8 @@ const ProductDetail = () => {
           {reviews &&
             reviews.map((reviewData) => (
               <ReviewCard key={reviewData.id}>
-                <p>User: {reviewData.userId}</p>
                 <p>Rate: {startRating(reviewData.rate)}</p>
+                <p>User: {reviewData.userId}</p>
                 <p>{reviewData.comment}</p>
               </ReviewCard>
             ))}
@@ -328,8 +329,7 @@ const ProductDetail = () => {
                 defaultValue={1}
                 onChange={(e) => setRate(e.target.value)}
               />
-              <textarea placeholder="Leave a comment..." name="comment" />
-              
+              <textarea placeholder="Leave a comment..." name="comment" required/>
               <ButtonOrange type="submit">Submit Review</ButtonOrange>
             </form>
           </LeaveReview>
