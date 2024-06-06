@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { CartContext } from "../../App";
+import addCartHelper from "../ShoppingCart/addCartHelper";
+import getCartHelper from "../ShoppingCart/getCartHelper";
 
 const Container = styled.div`
   display: flex;
@@ -156,13 +160,16 @@ const TableSpecifications = styled.table`
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const cartContext = useContext(CartContext);
+
   const { data: products, error } = useFetch(`/products/${id}`);
   const { data: reviews, refetch: refetchReviews } = useFetch(
     `/reviews?productId=${id}`
   );
-
+  
   const [rate, setRate] = useState(1);
   const [image, setImage] = useState("");
+  const [cart, setCart] = useState({});
 
   const user = JSON.parse(localStorage.getItem("userData"));
 
@@ -214,7 +221,6 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (reviews && reviews.length > 0) {
-      console.log("reviews", reviews);
       calculateAverageRate(reviews);
     }
   }, [reviews]);
@@ -240,10 +246,29 @@ const ProductDetail = () => {
       },
       body: JSON.stringify({
         userId: user.id,
-        productId: parseInt(id),
+        productId: +id,
       }),
     }).then((response) => response.json());
+    toast.success(`Product added in the wishlist`, { autoClose: 500 });
     return data;
+  };
+
+  const AddToCart = async (e) => {
+    e.preventDefault();
+    const cart = {
+      userId: user.id,
+      products: [
+        {
+          productId: +id,
+          quantity: 1,
+        },
+      ],
+    };
+    
+    addCartHelper(cart);
+    // const cartId = await getCartHelper(cart.id);
+    // console.log("CART ID", cartId);
+    toast.success(`Product added in the cart`, { autoClose: 500 });
   };
 
   return (
@@ -283,11 +308,10 @@ const ProductDetail = () => {
           )}
         </ContainerDetail>
         <SidePanel>
-          <ButtonOrange>Add to Cart</ButtonOrange>
+          <ButtonOrange onClick={AddToCart}>Add to Cart</ButtonOrange>
           <ButtonOrange>Buy Now</ButtonOrange>
           <hr />
           <ButtonOrange onClick={AddToWishlist}>Add to Wishlist</ButtonOrange>
-          <span>Wishlist</span>
         </SidePanel>
         <TableSpecifications>
           <thead>
