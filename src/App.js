@@ -21,6 +21,7 @@ function App() {
 const [products, setProducts] =  useState([]);
 const [user, setUser] =  useState('');
 const [cart, setCart] =  useState({});
+console.log('APP USER', user);
 
   return (
     <ProductContext.Provider value={{products, setProducts}}>
