@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RegisterUser.css";
 import { styled } from "styled-components";
@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import requestPost from "./UserAPostHelper";
+import { UserContext } from '../../App';
 
 const Largebutton = styled.button`
   width: 100%;
@@ -31,6 +32,11 @@ const LoginUser = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+
+ useEffect(()=> {
+    if(userContext.user) navigate('/product');
+ },[userContext, navigate])
 
   const loginPost = async (e) => {
     e.preventDefault();
@@ -43,7 +49,8 @@ const LoginUser = () => {
     if (user && accessToken) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userData", JSON.stringify(user));
-      navigate("/product");
+      userContext.setUser(user);
+      
       toast.success(`User ${user.username} logged in successfully!`);
     } else {
       toast.error(loginData);
