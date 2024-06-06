@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
@@ -112,6 +113,7 @@ const QuantityButton = styled.div`
 
 const ShoppingCart = () => {
     const userContext = useContext(UserContext);
+    const navigate = useNavigate();
     let userId;
     const user = JSON.parse(localStorage.getItem("userData"));
     console.log('USER',user);
@@ -201,7 +203,7 @@ const ShoppingCart = () => {
                                 <ItemPrice>${shopitem.product.price}</ItemPrice>
                                 <QuantitySelectorWrapper>
                                     <QuantityButton onClick={() => updateCartQty({productId: shopitem.productId, prodQty: shopitem.quantity, operation:'minus', userId})}>-</QuantityButton>
-                                    <QuantityInput type="number" value={shopitem.quantity} />
+                                    <QuantityInput type="input" value={shopitem.quantity} />
                                     <QuantityButton onClick={() => updateCartQty({productId: shopitem.productId, prodQty: shopitem.quantity, operation: 'plus', userId})}>+</QuantityButton>
                                 </QuantitySelectorWrapper>
                                 <RemoveButton onClick={() => removeItemFromCart({productId: shopitem.productId, userId})}>Remove</RemoveButton>
@@ -213,7 +215,7 @@ const ShoppingCart = () => {
                     {cartItems.products && (
                         <PreCheckout>
                             <div>Subtotal {cartItems.products.length} productos: ${calcSubtotal(cartItems.products)}</div>
-                            <CheckoutButton>Proceed to Checkout</CheckoutButton>
+                            <CheckoutButton onClick= {()=> {navigate('/checkout')}}>Proceed to Checkout</CheckoutButton>
                         </PreCheckout>
                     )}
                 </CartWrapper>

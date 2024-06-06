@@ -57,10 +57,8 @@ const CheckoutButton = styled.input`
 const CartCheckout = () => {
     const [open, setOpen] = useState(false);
     const userContext = useContext(UserContext);
-    console.log(userContext);
+    console.log('CONTEXTO', userContext.user);
     const personalData = {
-        fullName: "Jane Doe",
-        email: "janedoe@algo.com",
         phoneNumber: "6895988766"
     };
 
@@ -71,11 +69,11 @@ const CartCheckout = () => {
                 <h2>Personal Information</h2>
                 <FieldGroup>
                     <Label>Full Name:</Label>
-                    <Text>{personalData.fullName}</Text>
+                    <Text>{userContext.user.username}</Text>
                 </FieldGroup>
                 <FieldGroup>
                     <Label>Email:</Label>
-                    <Text>{personalData.email}</Text>
+                    <Text>{userContext.user.email}</Text>
                 </FieldGroup>
                 <FieldGroup>
                     <Label>Phone Number:</Label>
