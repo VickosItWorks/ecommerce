@@ -161,6 +161,7 @@ const TableSpecifications = styled.table`
 const ProductDetail = () => {
   const { id } = useParams();
   const cartContext = useContext(CartContext);
+  console.log('cart', cartContext.cart);
 
   const { data: products, error } = useFetch(`/products/${id}`);
   const { data: reviews, refetch: refetchReviews } = useFetch(

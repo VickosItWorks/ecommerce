@@ -122,9 +122,10 @@ const ShoppingCart = () => {
     //     userContext.setUser(user);
     // }
     userId = '1';
-    const { data, error } = useFetch(`/cart/${userId}`);
+    const { data, error } = useFetch(`/cart?userId=${userId}`);
     const [cartItems, setCartItems] = useState({});
     const cartContext = useContext(CartContext);
+    console.log("cart:", cartContext);
 
     useEffect(() => {
         console.log('USERID',userId);
@@ -141,7 +142,7 @@ const ShoppingCart = () => {
         //     console.log('unmounting'); 
         // };
 
-    }, [data])
+    }, [data, userId, cartItems, cartContext])
 
     const removeItemFromCart = async ({productId, userId}) => {
         //_embed
@@ -153,7 +154,7 @@ const ShoppingCart = () => {
 
         updateBody.products = products;
 
-        const newCartItem = await updateCartItem({ pathUrl: `cart/${userId}`, updateBody });
+        const newCartItem = await updateCartItem({ pathUrl: `cart?userId=${userId}`, updateBody });
         setCartItems(newCartItem);
     }
 
@@ -174,7 +175,7 @@ const ShoppingCart = () => {
         }
 
         updateBody.products = products;
-        const newCart = await updateCartItem({ pathUrl: `cart/${userId}`, updateBody });
+        const newCart = await updateCartItem({ pathUrl: `cart?userId=${userId}`, updateBody });
         setCartItems(newCart);
     }
 
