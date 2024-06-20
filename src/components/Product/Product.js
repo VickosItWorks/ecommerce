@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useFetch } from "../../hooks/useFetch";
+import { Star, Heart } from 'lucide-react';
+import { useState, useEffect } from "react";
+import updateWishList from "./updateWishListHelper";
+
 
 const CardContainer = styled.div`
   display: flex;
@@ -67,28 +71,64 @@ const DetailsCard = styled.div`
 
 const Product = () => {
   const { data, error } = useFetch("/products");
+  const wish = useFetch("/wishlist?userId:1");
   const navigate = useNavigate();
+  const [favs, setFavs] = useState([]);
+  const [test, setTest] = useState(false);
 
   const handleClick = (id) => {
     navigate(`/product/${id}`);
   };
 
+
+  useEffect(() => {
+    if (wish.data && !test) {
+      //newDat = wish.data[0].products.map(eachProd => eachProd.productId);
+      const newDat = wish.data[0].products;
+      setFavs(newDat);
+      setTest(true);
+    }
+    console.log('ESTAN PASANDO COSASSSSSS');
+  }, [wish])
+
+  const wishItem = async (e, itemId, favs, isLiked) => {
+    e.stopPropagation();
+    const newWishList = isLiked ?
+      favs.filter(favItem => favItem.productId != itemId) : [...favs, { productId: itemId }];
+
+    const updateBody = {
+      "userId": wish.data[0].userId,
+      "id": wish.data[0].userId,
+      products: newWishList
+    };
+
+    //updateWishList({pathUrl: `wishlist/${userId}` , updateBody})
+    const anotherWishList = await updateWishList({ pathUrl: 'wishlist/1', updateBody })
+    setFavs(anotherWishList.products);
+
+
+  }
+  console.log('FAVS', favs);
   return (
     <>
       <h1>Products</h1>
       {error && <p>Error</p>}
       <CardContainer>
         {data &&
-          data.map((product) => (
-            <Card key={product.id} onClick={() => handleClick(product.id)}>
-              <DetailsCard>
-                <h3>{product.name}</h3>
-                <img src={product.images[0].url} alt="" />
-                <p>Description: {product.description}</p>
-                <p>$ {product.price}</p>
-              </DetailsCard>
-            </Card>
-          ))}
+          data.map((product) => {
+            const liked = favs.find(el => el.productId === product.id);
+            return (
+              <Card key={product.id} onClick={() => handleClick(product.id)}>
+                <DetailsCard>
+                  <h3>{product.name}</h3>
+                  <img src={product.images[0].url} alt="" />
+                  <p>Description: {product.description}</p>
+                  <p>$ {product.price}</p>
+                </DetailsCard>
+                <button onClick={(e) => wishItem(e, product.id, favs, liked)}>{liked ? <Heart /> : <Star />}</button>
+              </Card>
+            )
+          })}
       </CardContainer>
     </>
   );
