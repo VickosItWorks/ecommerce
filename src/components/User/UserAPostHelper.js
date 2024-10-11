@@ -4,7 +4,6 @@ const requestPost = async ({ pathUrl, payload }) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   }).then(response => response.json());
-  console.log('DATA INSIDE THE USERPOSTHELPER', data);
   return data;
 }
 

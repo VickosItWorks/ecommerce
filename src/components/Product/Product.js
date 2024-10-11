@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useFetch } from "../../hooks/useFetch";
 import { Star, Heart } from 'lucide-react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import updateWishList from "./updateWishListHelper";
+import { UserContext } from "../../App";
 
 
 const CardContainer = styled.div`
@@ -71,44 +72,55 @@ const DetailsCard = styled.div`
 
 const Product = () => {
   const { data, error } = useFetch("/products");
-  const wish = useFetch("/wishlist?userId:1");
+  const userContext = useContext(UserContext);
+  //const wish = useFetch("/wishlist?userId:1");
   const navigate = useNavigate();
   const [favs, setFavs] = useState([]);
   const [test, setTest] = useState(false);
 
+  //  if(userContext.user){
+  //     wish = useFetch(`/wishlist?userId:${userContext.user.id}`);
+  //  } else {
+  //     wish = [];
+  //  }
+
+   const {data: wishData, error: wishError} = useFetch(`/wishlist?userId=${userContext.user?.id}`)
+  
   const handleClick = (id) => {
     navigate(`/product/${id}`);
   };
 
+  const wishList = wishData?.data ?? wishData ?? []; 
 
   useEffect(() => {
-    if (wish.data && !test) {
-      //newDat = wish.data[0].products.map(eachProd => eachProd.productId);
-      const newDat = wish.data[0].products;
+    if (wishList.length > 0 && !test) {
+      const newDat = wishList[0].products;
       setFavs(newDat);
       setTest(true);
     }
-    console.log('ESTAN PASANDO COSASSSSSS');
-  }, [wish])
+  }, [wishList])
 
   const wishItem = async (e, itemId, favs, isLiked) => {
     e.stopPropagation();
+    if(favs.length === 0){
+      navigate('/login');
+      return;
+    }
+    
     const newWishList = isLiked ?
       favs.filter(favItem => favItem.productId != itemId) : [...favs, { productId: itemId }];
 
     const updateBody = {
-      "userId": wish.data[0].userId,
-      "id": wish.data[0].userId,
+      "userId": wishList[0].userId,
+      "id": wishList[0].userId,
       products: newWishList
     };
 
-    //updateWishList({pathUrl: `wishlist/${userId}` , updateBody})
-    const anotherWishList = await updateWishList({ pathUrl: 'wishlist/1', updateBody })
+    const anotherWishList = await updateWishList({ pathUrl: `wishlist/${wishList[0].userId}`, updateBody })
     setFavs(anotherWishList.products);
 
-
   }
-  console.log('FAVS', favs);
+  
   return (
     <>
       <h1>Products</h1>

@@ -29,64 +29,66 @@ const Regcontainer = styled.div`
 `;
 
 const LoginUser = () => {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const navigate = useNavigate();
-  const userContext = useContext(UserContext);
+    const [email, setEmail] = useState("");
+    const [pass, setPass] = useState("");
+    const navigate = useNavigate();
+    const userContext = useContext(UserContext);
 
- useEffect(()=> {
-    if(userContext.user) navigate('/product');
- },[userContext, navigate])
+    
 
-  const loginPost = async (e) => {
-    e.preventDefault();
-    let payload = {};
-    payload.email = email;
-    payload.password = pass;
+    useEffect(() => {
+        if (userContext.user) navigate('/product');
+    }, [userContext, navigate])
 
-    const loginData = await requestPost({ pathUrl: "login", payload });
-    const { user, accessToken } = loginData;
-    if (user && accessToken) {
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("userData", JSON.stringify(user));
-      userContext.setUser(user);
-      
-      toast.success(`User ${user.username} logged in successfully!`);
-    } else {
-      toast.error(loginData);
-    }
-  };
+    const loginPost = async (e) => {
+        e.preventDefault();
+        let payload = {};
+        payload.email = email;
+        payload.password = pass;
 
-  return (
-    <Regcontainer className="container">
-      <h1>Login</h1>
-      <form>
-        <label name="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        const loginData = await requestPost({ pathUrl: "login", payload });
+        const { user, accessToken } = loginData;
+        if (user && accessToken) {
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("userData", JSON.stringify(user));
+            userContext.setUser(user);
 
-        <label name="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
-          required
-        />
-        <Largebutton className="loginbtn" onClick={loginPost} type="submit">
-          Submit
-        </Largebutton>
-        <ToastContainer />
-      </form>
-    </Regcontainer>
-  );
+            toast.success(`User ${user.username} logged in successfully!`);
+        } else {
+            toast.error(loginData);
+        }
+    };
+
+    return (
+        <Regcontainer className="container">
+            <h1>Login</h1>
+            <form>
+                <label name="email">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+
+                <label name="password">Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={pass}
+                    onChange={(e) => setPass(e.target.value)}
+                    required
+                />
+                <Largebutton className="loginbtn" onClick={loginPost} type="submit">
+                    Submit
+                </Largebutton>
+                <ToastContainer />
+            </form>
+        </Regcontainer>
+    );
 };
 
 export default LoginUser;

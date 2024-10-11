@@ -57,7 +57,7 @@ const CheckoutButton = styled.input`
 const CartCheckout = () => {
     const [open, setOpen] = useState(false);
     const userContext = useContext(UserContext);
-    console.log('CONTEXTO', userContext.user);
+
     const personalData = {
         phoneNumber: "6895988766"
     };

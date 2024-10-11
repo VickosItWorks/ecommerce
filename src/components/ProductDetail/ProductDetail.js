@@ -161,7 +161,6 @@ const TableSpecifications = styled.table`
 const ProductDetail = () => {
   const { id } = useParams();
   const cartContext = useContext(CartContext);
-  console.log('cart', cartContext.cart);
 
   const { data: products, error } = useFetch(`/products/${id}`);
   const { data: reviews, refetch: refetchReviews } = useFetch(
@@ -268,7 +267,7 @@ const ProductDetail = () => {
     
     addCartHelper(cart);
     // const cartId = await getCartHelper(cart.id);
-    // console.log("CART ID", cartId);
+
     toast.success(`Product added in the cart`, { autoClose: 500 });
   };
 

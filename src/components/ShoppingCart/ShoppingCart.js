@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import deleteCartItem from './DeleteCarHelper';
 import updateCartItem from './updateCartHelper';
 import { CartContext, UserContext } from '../../App';
+import { useSndFetch } from '../../hooks/sndFetch';
 
 const Container = styled.div`
   max-width: 800px;
@@ -112,117 +113,114 @@ const QuantityButton = styled.div`
 `;
 
 const ShoppingCart = () => {
-    const userContext = useContext(UserContext);
-    const navigate = useNavigate();
-    let userId;
-    const user = JSON.parse(localStorage.getItem("userData"));
-    console.log('USER',user);
-    // if(user){
-    //     userId = user.id;
-    //     userContext.setUser(user);
-    // }
-    userId = '1';
-    const { data, error } = useFetch(`/cart?userId=${userId}`);
-    const [cartItems, setCartItems] = useState({});
-    const cartContext = useContext(CartContext);
-    console.log("cart:", cartContext);
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
+  let userId;
+  
+  console.log(userContext.user);
+  userId = userContext.user.id;
+  console.log(userId);
+  const url = `/cart?userId=${userContext.user?.id}`;
+  console.log(url);
+  
+  //const { data, error } = useFetch(url);
+  const {data, isError, isPending} = useSndFetch(url);
 
-    useEffect(() => {
-        console.log('USERID',userId);
-        if(!userId) return;
-        if (data) {
-            setCartItems(data);
-            cartContext.setCart(cartItems);
-            console.log(cartContext);
-        }
+  const [cartItems, setCartItems] = useState({});
+  const cartContext = useContext(CartContext);
 
-        //NOTE: CALLBACK READ 
-
-        // return ()=> {
-        //     console.log('unmounting'); 
-        // };
-
-    }, [data, userId, cartItems, cartContext])
-
-    const removeItemFromCart = async ({productId, userId}) => {
-        //_embed
-        const updateBody = {
-            userId
-        }
-
-        const products = cartItems.products.filter(prod => prod.productId != productId);
-
-        updateBody.products = products;
-
-        const newCartItem = await updateCartItem({ pathUrl: `cart?userId=${userId}`, updateBody });
-        setCartItems(newCartItem);
+  useEffect(() => {
+    if (!userId) return;
+    if (data) {
+      setCartItems(data);
+      cartContext.setCart(cartItems);
     }
 
-    const updateCartQty = async ({productId, prodQty, operation, userId}) => {
-        const updateBody = {
-            userId
-        }
+  }, [data, userId, cartItems, cartContext])
 
-        const products = [];
-
-        for (const item of cartItems.products) {
-            if (item.productId != productId) {
-                products.push(item);
-            } else {
-                item.quantity = operation === 'plus' ? (prodQty + 1) : (prodQty - 1);
-                products.push(item);
-            }
-        }
-
-        updateBody.products = products;
-        const newCart = await updateCartItem({ pathUrl: `cart?userId=${userId}`, updateBody });
-        setCartItems(newCart);
+  const removeItemFromCart = async ({ productId, userId }) => {
+    //_embed
+    const updateBody = {
+      userId
     }
 
-    const calcSubtotal = (allProds) => {
-        let total = 0;
+    const products = cartItems.products.filter(prod => prod.productId != productId);
 
-        allProds.forEach(el => {
-            total += el.quantity * el.product.price;
-        });
+    updateBody.products = products;
 
-        return total;
+    const newCartItem = await updateCartItem({ pathUrl: `cart?userId=${userId}`, updateBody });
+    setCartItems(newCartItem);
+  }
+
+  const updateCartQty = async ({ productId, prodQty, operation, userId }) => {
+    const xarray = [];
+    const updateBody = {
+      userId
     }
 
+    const products = [];
 
-    return (
-        <div>
-            {error && <p>Error</p>}
-            <Container>
-                <Title>Shopping Cart</Title>
-                <CartWrapper>
-                    {cartItems.products && cartItems.products.map((shopitem) => (
-                        <Item key={shopitem.productId}>
-                            <ItemImage src={shopitem.product.images[0].url} alt={shopitem.product.description} />
-                            <ItemDetails>
-                                <ItemTitle>{shopitem.product.name}</ItemTitle>
-                                <ItemPrice>${shopitem.product.price}</ItemPrice>
-                                <QuantitySelectorWrapper>
-                                    <QuantityButton onClick={() => updateCartQty({productId: shopitem.productId, prodQty: shopitem.quantity, operation:'minus', userId})}>-</QuantityButton>
-                                    <QuantityInput type="input" value={shopitem.quantity} />
-                                    <QuantityButton onClick={() => updateCartQty({productId: shopitem.productId, prodQty: shopitem.quantity, operation: 'plus', userId})}>+</QuantityButton>
-                                </QuantitySelectorWrapper>
-                                <RemoveButton onClick={() => removeItemFromCart({productId: shopitem.productId, userId})}>Remove</RemoveButton>
-                            </ItemDetails>
-                        </Item>
-                    ))}
-                </CartWrapper>
-                <CartWrapper>
-                    {cartItems.products && (
-                        <PreCheckout>
-                            <div>Subtotal {cartItems.products.length} productos: ${calcSubtotal(cartItems.products)}</div>
-                            <CheckoutButton onClick= {()=> {navigate('/checkout')}}>Proceed to Checkout</CheckoutButton>
-                        </PreCheckout>
-                    )}
-                </CartWrapper>
-            </Container>
-        </div>
-    );
+    for (const item of cartItems[0].products) {
+      if (item.productId != productId) {
+        products.push(item);
+      } else {
+        item.quantity = operation === 'plus' ? (prodQty + 1) : (prodQty - 1);
+        products.push(item);
+      }
+    }
+
+    updateBody.products = products;
+    xarray.push(updateBody);
+    const newCart = await updateCartItem({ pathUrl: `cart?userId=${userId}`, updateBody: xarray });
+    setCartItems(newCart);
+  }
+
+  const calcSubtotal = (allProds) => {
+    let total = 0;
+
+    allProds.forEach(el => {
+      total += el.quantity * el.product.price;
+    });
+
+    return total;
+  }
+
+  const products = cartItems[0]?.products ?? cartItems.products;
+
+
+  return (
+    <div>
+      {isError && <p>Error</p>}
+      <Container>
+        <Title>Shopping Cart</Title>
+        <CartWrapper>
+          {products && products.map((shopitem) => (
+            <Item key={shopitem.productId}>
+              <ItemImage src={shopitem.product.images[0].url} alt={shopitem.product.description} />
+              <ItemDetails>
+                <ItemTitle>{shopitem.product.name}</ItemTitle>
+                <ItemPrice>${shopitem.product.price}</ItemPrice>
+                <QuantitySelectorWrapper>
+                  <QuantityButton onClick={() => updateCartQty({ productId: shopitem.productId, prodQty: shopitem.quantity, operation: 'minus', userId })}>-</QuantityButton>
+                  <QuantityInput type="input" value={shopitem.quantity} />
+                  <QuantityButton onClick={() => updateCartQty({ productId: shopitem.productId, prodQty: shopitem.quantity, operation: 'plus', userId })}>+</QuantityButton>
+                </QuantitySelectorWrapper>
+                <RemoveButton onClick={() => removeItemFromCart({ productId: shopitem.productId, userId })}>Remove</RemoveButton>
+              </ItemDetails>
+            </Item>
+          ))}
+        </CartWrapper>
+        <CartWrapper>
+          {products && (
+            <PreCheckout>
+              <div>Subtotal {products.length} productos: ${calcSubtotal(products)}</div>
+              <CheckoutButton onClick={() => { navigate('/checkout') }}>Proceed to Checkout</CheckoutButton>
+            </PreCheckout>
+          )}
+        </CartWrapper>
+      </Container>
+    </div>
+  );
 };
 
 export default ShoppingCart;

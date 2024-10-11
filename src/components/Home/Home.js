@@ -1,6 +1,7 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, {useEffect, useContext} from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from "../../App";
 
 const Container = styled.div`
   display: flex;
@@ -11,11 +12,21 @@ const Container = styled.div`
   align-items: center;
 `;
 
+
+
 const Home = () => {
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) navigate('/login');
+    userContext.setUser(JSON.parse(localStorage.getItem('userData')));
+  }, [])
+
+  if(!userContext.user) return null;
   return (
     <>
       <Container>
-        <Outlet />
+        <Outlet/>
       </Container>
     </>
   );

@@ -28,7 +28,6 @@ const SearchContainer = styled.div`
 
 const Search = () => {
   const productContext = useContext(ProductContext);
-  console.log(productContext);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   
@@ -44,7 +43,6 @@ const Search = () => {
         const res = await fetch(baseUrl +'/products?q='+ debouncedSearchTerm, {headers: { "Authorization": `Bearer ${localStorage.getItem('accessToken')}`}});
         const json = await res.json();
         productContext.setProducts(json);
-        console.log(json);
       };
       fetchData();
     }
