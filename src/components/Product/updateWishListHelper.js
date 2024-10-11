@@ -1,4 +1,5 @@
 const updateWishList = async ({ pathUrl, updateBody}) => {
+    console.log(localStorage.getItem('accessToken'));
     const data = await fetch(`http://localhost:5500/${pathUrl}`, {
       method: "PUT",
       headers: { 

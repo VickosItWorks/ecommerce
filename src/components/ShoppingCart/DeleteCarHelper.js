@@ -6,7 +6,6 @@ const deleteCartItem = async ({ pathUrl}) => {
         "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
     }
     }).then(response => response.json());
-    console.log('DATA INSIDE THE carhelper', data);
     return data;
   }
   
